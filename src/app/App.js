@@ -14,43 +14,10 @@ import Quiz from "../features/quizzes/Quiz";
 import Quizzes from "../features/quizzes/Quizzes";
 import ROUTES from "./routes";
 
-export default function App() {
-  return (
-    <Router>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to={ROUTES.topicsRoute()} activeClassName="active">
-              Topics
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={ROUTES.quizzesRoute()} activeClassName="active">
-              Quizzes
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={ROUTES.newQuizRoute()} activeClassName="active">
-              New Quiz
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-
-      <Switch>
-        <Route path="/topics">
-          <TopicsRoutes />
-        </Route>
-        <Route path="/quizzes">
-          <QuizRoutes />
-        </Route>
-      </Switch>
-    </Router>
-  );
-}
 
 function TopicsRoutes() {
-  let match = useRouteMatch();
+  // Match a given router
+  let match = useRouteMatch(/* '/topics' */);
 
   return (
     <>
@@ -86,5 +53,41 @@ function QuizRoutes() {
         </Route>
       </Switch>
     </>
+  );
+}
+
+
+export default function App() {
+  return (
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to={ROUTES.topicsRoute()} activeClassName="active">
+              Topics
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={ROUTES.quizzesRoute()} activeClassName="active">
+              Quizzes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={ROUTES.newQuizRoute()} activeClassName="active">
+              New Quiz
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <Switch>
+        <Route path="/topics">
+          <TopicsRoutes />
+        </Route>
+        <Route path="/quizzes">
+          <QuizRoutes />
+        </Route>
+      </Switch>
+    </Router>
   );
 }

@@ -3,11 +3,14 @@ import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import ROUTES from "../app/routes";
 import { ALL_ICONS } from "../data/icons";
+import { addTopic } from "../features/topics/TopicsSlices.js";
+import { useDispatch } from "react-redux";
 
 export default function NewTopicForm() {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +18,11 @@ export default function NewTopicForm() {
       return;
     }
 
+    // Generate a new id through a universally unique identifier
+    const id = uuidv4().substring(0, 3);
+
     // dispatch your add topic action here
+    dispatch(addTopic({id: id, name: name, icon: icon}));
     history.push(ROUTES.topicsRoute());
   };
 
