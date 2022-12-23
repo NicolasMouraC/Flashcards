@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import ROUTES from "../app/routes";
 import { useDispatch } from "react-redux";
-import { addQuizAction } from "../features/quizzes/QuizzesSlice";
 import { useSelector } from "react-redux";
-import { selectTopics } from "../features/topics/TopicsSlices";
+import { addQuizAction } from "../features/quizzes/QuizzesSlice.js";
+import { selectTopics } from "../features/topics/TopicsSlices.js";
+import { addCard } from "../features/cards/CardsSlice.js";
 
 export default function NewQuizForm() {
   const [name, setName] = useState("");
@@ -23,12 +24,25 @@ export default function NewQuizForm() {
 
     const cardIds = [];
 
+    cards.map(card => {
+      const cardId = uuidv4();
+
+      dispatch(addCard({
+        id: cardId,
+        front: card.front,
+        back: card.back,
+      }))
+
+      cardIds.push(cardId);
+    })
+
+    console.log(`Card ids: ${cardIds}`)
 
     dispatch(addQuizAction({
       id: uuidv4(),
       name: name,
       topicId: topicId,
-      cardsIds: cardIds,
+      cardIds: cardIds,
     }))
     history.push(ROUTES.quizzesRoute());
   };
