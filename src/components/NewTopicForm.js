@@ -19,9 +19,8 @@ export default function NewTopicForm() {
     }
 
     // Generate a new id through a universally unique identifier
-    const id = uuidv4().substring(0, 3);
+    const id = uuidv4();
 
-    // dispatch your add topic action here
     dispatch(addTopic({id: id, name: name, icon: icon}));
     history.push(ROUTES.topicsRoute());
   };
